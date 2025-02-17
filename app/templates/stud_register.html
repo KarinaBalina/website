@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация студента</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+     <div class="container p-4 bg-white shadow rounded" style="max-width: 500px;">
+        <h2 class="text-center mb-4">Добавить нового студента</h2>
+       {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.studlogin.label(class="form-label") }}
+                {{ form.studlogin(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.studpassword.label(class="form-label") }}
+                {{ form.studpassword(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.first_name.label(class="form-label") }}
+                {{ form.first_name(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.middle_name.label(class="form-label") }}
+                {{ form.middle_name(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.last_name.label(class="form-label") }}
+                {{ form.last_name(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.studentid.label(class="form-label") }}
+                {{ form.studentid(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.studyForm.label(class="form-label") }}
+                {{ form.studyForm(class="form-select") }}
+            </div>
+            <div class="mb-3">
+                {{ form.groupnumber.label(class="form-label") }}
+                {{ form.groupnumber(class="form-select") }}
+            </div>
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary w-100") }}
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('students') }}" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

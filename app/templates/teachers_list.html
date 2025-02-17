@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список преподавателей</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<form method="post">
+  <div class="container p-4 bg-white shadow rounded" style="max-width: 900px;">
+       <h1 class="text-center mb-4">Список преподавателей</h1>
+       <div class="table-responsive">
+           <table class="table table-bordered text-center">
+               <thead class="table-primary">
+                   <tr>
+                       <th>User ID</th>
+                       <th>ФИО</th>
+                       <th>Email</th>
+                       <th>Номер кафедры</th>
+                       <th>Предметы</th>
+                       <th>Группы</th>
+                       <th>Действия</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for teacher in teachers %}
+                       <tr>
+                           <td>{{ teacher[0] }}</td>
+                           <td class="text-start">{{ teacher[1] }}</td>
+                           <td>{{ teacher[2] }}</td>
+                           <td>{{ teacher[3] }}</td>
+                           <td class="text-start">{{ teacher[4] }}</td>
+                           <td class="text-start">{{ teacher[5] }}</td>
+                           <td>
+                               <button type="submit" formaction="/delete_user/{{ teacher[0] }}" class="btn btn-danger btn-sm">Удалить</button>
+                               <button type="submit" formaction="/update_teacher/{{ teacher[0] }}" class="btn btn-success btn-sm">Обновить</button>
+                           </td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+       <div class="text-center mt-3">
+           <a href="{{ url_for('admin') }}" class="btn btn-secondary">Назад</a>
+           <a href="{{ url_for('teacherRegister') }}" class="btn btn-primary">Добавить преподавателя</a>
+       </div>
+   </div>
+</form>
+
+<!-- Подключение Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

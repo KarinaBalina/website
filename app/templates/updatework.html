@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменение работы</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <div class="container p-4 bg-white shadow rounded" style="max-width: 500px;">
+        <h2 class="text-center mb-4">Редактировать работу</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.date.label(class="form-label") }}
+                {{ form.date(class="form-control") }}
+            </div>
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary w-100") }}
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('subjects') }}" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

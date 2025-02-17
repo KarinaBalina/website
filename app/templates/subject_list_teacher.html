@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список работ</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Список работ</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Предмет</th>
+                        <th>Номер группы</th>
+                        <th>Название работы</th>
+                        <th>Дата проведения/крайний срок сдачи</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subject in subjects %}
+                    <tr>
+                        <td>{{ subject[0] }}</td>
+                        <td>{{ subject[1] }}</td>
+                        <td>{{ subject[2] }}</td>
+                        <td>{{ subject[3] }}</td>
+                        <td>
+                            <form method="post" class="d-inline">
+                                <button type="submit" formaction="{{ url_for('deletework', id=subject[4]) }}" class="btn btn-sm btn-danger">
+                                    Удалить
+                                </button>
+                                <button type="submit" formaction="{{ url_for('updatework', id=subject[4], groupnumber=subject[1]) }}" class="btn btn-sm btn-success">
+                                    Обновить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{{ url_for('add_work') }}" class="btn btn-primary">Добавить работу</a>
+            <a href="{{ url_for('teacher') }}" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

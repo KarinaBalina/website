@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль студента</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<form method="post">
+   <div class="container p-4 bg-white shadow rounded" style="max-width: 600px;">
+       <h2 class="text-center mb-4">Профиль студента</h2>
+       <h4 class="text-center">{{ user.first_name }} {{ user.middle_name }} {{ user.lastname }}</h4>
+       <p class="text-center">Номер группы: <a href="{{ url_for('group_list', group_no=user.group_number) }}" class="text-decoration-none">{{ user.group_number }}</a></p>
+       <p class="text-center">Номер зачётной книжки: <strong>{{ user.record_number }}</strong></p>
+       <p class="text-center">Форма обучения: <strong>{{ user.studyform }}</strong></p>
+       <p class="text-center">Стипендия: <strong>{{ user.stipend|default("0", true) }} руб.</strong></p>
+
+       <div class="text-center">
+           <a href="{{ url_for('subject_for_user', user_id=user.id) }}" class="btn btn-primary w-100 mb-2">Дисциплины</a>
+           <a href="{{ url_for('grades_student') }}" class="btn btn-secondary w-100 mb-2">Оценки</a>
+           <a href="{{ url_for('logout') }}" class="btn btn-danger w-100">Выход</a>
+       </div>
+   </div>
+</form>
+
+<!-- Подключение Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

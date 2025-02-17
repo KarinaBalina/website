@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список работ</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<form method="post">
+  <div class="container p-4 bg-white shadow rounded" style="max-width: 900px;">
+       <h1 class="text-center mb-4">Список работ</h1>
+       <div class="table-responsive">
+           <table class="table table-bordered text-center">
+               <thead class="table-primary">
+                   <tr>
+                       <th>Название работы</th>
+                       <th>Предмет</th>
+                       <th>Преподаватели</th>
+                       <th>Дата проведения/крайний срок сдачи</th>
+                       <th>Ответ</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for subject in subjects %}
+                       <tr>
+                           <td class="text-start">{{ subject[2] }}</td>
+                           <td class="text-start">{{ subject[0] }}</td>
+                           <td>{{ subject[1] }}</td>
+                           <td>{{ subject[3] }}</td>
+                           <td>
+                               <a href="{{ url_for('upload_answer', work_id=subject[4]) }}" class="btn btn-primary btn-sm">Загрузить ответ</a>
+                           </td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+       <div class="text-center mt-3">
+           <a href="{{ url_for('student') }}" class="btn btn-secondary">Назад</a>
+       </div>
+   </div>
+</form>
+
+<!-- Подключение Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

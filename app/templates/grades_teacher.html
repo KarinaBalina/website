@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оценки студентов</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center">Оценки студентов</h1>
+
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th>Студент</th>
+                    <th>Предмет</th>
+                    <th>Работа</th>
+                    <th>Оценка</th>
+                    <th>Статус</th>
+                    <th>Файл</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade[0] }}</td>
+                    <td>{{ grade[1] }}</td>
+                    <td>{{ grade[2] }}</td>
+                    <td>{{ grade[3] if grade[3] else "Не оценено" }}</td>
+                    <td>
+                        {% if grade[4] == 'submitted' %}
+                            Ожидает проверки
+                        {% elif grade[4] == 'принято' %}
+                            Принято
+                        {% elif grade[4] == 'не принято' %}
+                            Не принято
+                        {% endif %}
+                    </td>
+                     <td>
+                        {% if grade[6] %}
+                            <a href="{{ url_for('download_answer', grade_id=grade[5]) }}" class="btn btn-sm btn-outline-success">
+                                Скачать файл
+                            </a>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Кнопка для вызова модального окна -->
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editGradeModal{{ grade[5] }}">
+                            Изменить
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Модальное окно для редактирования оценки -->
+                <div class="modal fade" id="editGradeModal{{ grade[5] }}" tabindex="-1" aria-labelledby="editGradeLabel{{ grade[5] }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editGradeLabel{{ grade[5] }}">Изменить оценку</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="{{ url_for('update_grade', grade_id=grade[5]) }}">
+                                  <div class="mb-3">
+    <label for="grade_{{ grade[5] }}" class="form-label">Оценка:</label>
+    <input type="number" class="form-control" id="grade_{{ grade[5] }}" name="grade"
+           value="{{ grade[3] if grade[3] else '' }}" required min="2" max="5">
+</div>
+<div class="mb-3">
+    <label for="status_{{ grade[5] }}" class="form-label">Статус:</label>
+    <select id="status_{{ grade[5] }}" name="status" class="form-select">
+        <option value="принято" {% if grade[4] == 'принято' %}selected{% endif %}>Принято</option>
+        <option value="не принято" {% if grade[4] == 'не принято' %}selected{% endif %}>Не принято</option>
+    </select>
+</div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                        <button type="submit" class="btn btn-success">Обновить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('teacher') }}" class="btn btn-outline-dark mt-3">Назад</a>
+    </div>
+
+    <!-- Подключение Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
